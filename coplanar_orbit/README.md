@@ -2,14 +2,14 @@
 Данная библиотека позволяет работать с компланарными орбитами, а также с движение КА по этой орбите с отслеживанием его матрицы состояния $(\phi, x, y, r,V_x, V_y, V, t, m)$.
  - Класс `Trajectory` позволяет построить переходную орбиту, после чего выполнить n компланарных переходов между орбитами.
 
-<b> Для упрощения работы выполнен графический интерфейс. Для работы с графическим интерфейсом достаточно скачать архив `CoOrbits.rar`. </b>
+<b> Для упрощения работы выполнен графический интерфейс. Для работы с графическим интерфейсом достаточно скачать архив [`CoOrbits.rar`](https://drive.google.com/drive/folders/17P1J4EJGzzcqf8U4UE_4dyKV3q8pbJ0R?usp=share_link). </b>
 
 ---
 
 This library allows you to work with coplanar orbits, as well as with the movement of the spacecraft along this orbit with tracking its state matrix $(\phi, x, y, r, V_x, V_y, V, t, m)$.
  - The `Trajectory` class allows you to build a transition orbit, and then perform n coplanar transitions between orbits.
 
-<b> To simplify the work, a graphical interface has been created. To work with the graphical interface, it is enough to download the archive `CoOrbits.rar`.</b>
+<b> To simplify the work, a graphical interface has been created. To work with the graphical interface, it is enough to download the archive [`CoOrbits.rar`](https://drive.google.com/drive/folders/17P1J4EJGzzcqf8U4UE_4dyKV3q8pbJ0R?usp=share_link).</b>
 
 ## Применение / Usage
 При работе с классом выполняются шаги в данной последовательности [(пример)](example_usage.ipynb):
