@@ -84,9 +84,10 @@ class IntegrationConstants:
             self.tpi = self.t0 - (E0 - self.e*sin(E0))/n #время прохождения перигея
 
         print('Константы найдены (см. документацию)! \nОсновные константы интегрирования (h, p, e, i, Omega, tpi):')
-        return (self.h, self.p, self.e, self.i, self.Omega, self.tpi)
+        print(self.h, self.p, self.e, self.i, self.Omega, self.tpi)
+        return
     
-    def to_2D(self, epsilon=0.0001):
+    def to2d(self, epsilon=0.0001):
         matrix_A1 = np.array([
             [cos(self.Omega), sin(self.Omega), 0], 
             [-sin(self.Omega), cos(self.Omega), 0], 
@@ -288,5 +289,49 @@ class Trajectory:
         ax = plt.subplot(111,projection='polar')
         ax.plot(nu, r, color='r', linewidth=3)
         ax.grid(True)
+
+        plt.show()
+
+    def orbit3d(self, i, omega, Omega, p, e, vertical_roll=30, z_roll=30):
+        r_earth = 6371
+
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot([-15000, 15000], [0, 0], [0, 0], color='black')
+        ax.plot([0, 0], [-15000, 15000], [0, 0], color='black')
+        ax.plot([0, 0], [0, 0], [-15000, 15000], color='black')
+
+        u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
+        x_earth = r_earth*np.cos(u)*np.sin(v)
+        y_earth = r_earth*np.sin(u)*np.sin(v)
+        z_earth = r_earth*np.cos(v)
+        ax.plot_surface(x_earth, y_earth, z_earth, cmap='gist_earth')
+
+        nu = np.linspace(0, 2*np.pi, 100)
+        r = p / (1 + e*np.cos(nu))
+        x_orbit = r * np.cos(nu)
+        y_orbit = r * np.sin(nu)
+        z_orbit = np.zeros_like(x_orbit)
+
+        A = np.array([
+            [cos(omega)*cos(Omega)-sin(omega)*cos(i)*sin(Omega),-sin(omega)*cos(Omega)-cos(omega)*cos(i)*sin(Omega), sin(i)*sin(Omega)], 
+            [cos(omega)*sin(Omega)+sin(omega)*cos(i)*cos(Omega),-sin(omega)*sin(Omega)+cos(omega)*cos(i)*cos(Omega), -sin(i)*cos(Omega)], 
+            [sin(omega)*sin(i), cos(omega)*sin(i), cos(i)]])
+
+        xyz = np.array([x_orbit, y_orbit, z_orbit]).T
+        xyz = A.dot(xyz.T).T
+        x_orbit, y_orbit, z_orbit = xyz[:, 0], xyz[:, 1], xyz[:, 2]
+        ax.plot(x_orbit, y_orbit, z_orbit, color='red', alpha=0.7)
+
+        lim = max(r)/2
+        ax.set_xlim([-lim, lim])
+        ax.set_ylim([-lim, lim])
+        ax.set_zlim([-lim, lim])
+
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+
+        ax.view_init(vertical_roll, z_roll)
 
         plt.show()

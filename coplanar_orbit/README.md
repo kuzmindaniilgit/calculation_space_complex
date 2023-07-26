@@ -62,7 +62,7 @@ The library allows you to work with near-Earth orbits: calculate the elements of
 
 ### IntegrationConstants <br>
 При работе с классом выполняются шаги в данной последовательности:
-1. Инициализация начальным радиусом-вектором и начальным вектором скорости, также можно указать начальный момент времени `t0=None - по-умолчанию` ;
+1. Инициализация начальным радиусом-вектором и начальным вектором скорости, также можно указать начальный момент времени `t0=None - по умолчанию` ;
 ```Python
     ic = IntegrationConstants(x=1500, y=-6700, z=-7900, vx=-8, vy=-1, vz=1, t0=21600)
     #или
@@ -72,7 +72,7 @@ The library allows you to work with near-Earth orbits: calculate the elements of
 ```Python
     ic.find()
 ```
-Для взаимодействия с классом `Trajectory` необходимо задать одинаковые системы координат или же выполнить вращение системы координат класса `IntegrationConstants` до совмещения плоскости $xOy$ c плоскостью орбиты. Метод `to_2D` позволяет это сделать. Результатом его работы являются два плоских вектора - $[x,y,z], [v_x,v_y,v_z]$. Параметр `epsilon` определяет точность координат векторов. Их мы передаем в метод `Trajectory.trajectory` [(пример)](example_connection.ipynb).
+Для взаимодействия с классом `Trajectory` необходимо задать одинаковые системы координат или же выполнить вращение системы координат класса `IntegrationConstants` до совмещения плоскости $xOy$ c плоскостью орбиты. Метод `to_2D` позволяет это сделать. Результатом его работы являются два плоских вектора - $[x,y,z], [v_x,v_y,v_z]$. Параметр `epsilon` определяет точность координат векторов. Их мы передаем в метод `Trajectory.trajectory` [(пример связи классов)](example_connection.ipynb).
 ```Python
     vect = ic.to_2D(epsilon=0.001)
     r = vect[0]
@@ -83,11 +83,11 @@ When working with a class, the steps are performed in this sequence:
 1. Initialization with the initial radius vector and the initial velocity vector, you can also specify the initial time `t0=None - by default`;
 2. Calling the `find` method to find all the elements; 
 
-To interact with the `Trajectory` class, it is necessary to set the same coordinate systems or rotate the coordinate system of the `IntegrationConstants` class to align the $xOy$ plane with the orbit plane. The `to_2D` method allows you to do this. The result of his work are two flat vectors - $[x,y,z], [v_x,v_y,v_z]$. The epsilon parameter determines the accuracy of the coordinates of the vectors. We pass them to the `Trajectory.trajectory` method [(example)](example_connection.ipynb).
+To interact with the `Trajectory` class, it is necessary to set the same coordinate systems or rotate the coordinate system of the `IntegrationConstants` class to align the $xOy$ plane with the orbit plane. The `to_2D` method allows you to do this. The result of his work are two flat vectors - $[x,y,z], [v_x,v_y,v_z]$. The epsilon parameter determines the accuracy of the coordinates of the vectors. We pass them to the `Trajectory.trajectory` method [(check connection)](example_connection.ipynb).
 
 ### Trajectory<br>
-При работе с классом выполняются шаги в данной последовательности [(пример)](example_usage.ipynb):
-1. При инициализации вводится начальный, конечный моменты времени `(start, end)`, а также шаг интегрирования `(step)`. По-умолчанию: `start=0, end=100, step=1`;
+При работе с классом выполняются шаги в данной последовательности [(пример работы)](example_usage.ipynb):
+1. При инициализации вводится начальный, конечный моменты времени `(start, end)`, а также шаг интегрирования `(step)`. По умолчанию: `start=0, end=100, step=1`;
 ```Python
     tj = Trajectory(start=0, end=100, step=1)
     #или
@@ -124,13 +124,14 @@ To interact with the `Trajectory` class, it is necessary to set the same coordin
 4. Метод `data` позволяет работать с табличными данными (таблица - это матрица состояния);
 
 5. Метод `plot` выводит график, имеет параметры:
-- `radius_vector = False ` по-умолчанию. <br>
+- `radius_vector = False ` по умолчанию. <br>
 Параметр отвечает за отображение радиус-векторов,
-- `dot_engine_start = False` по-умолчанию;<br>
+- `dot_engine_start = False` по умолчанию;<br>
     Параметр отвечает за отображение точек включения двигателя;
 
 6. Метод `pplotly` выводит интерактивный график задействующий библиотеку plotly;
-7. Метод `polar` выводит орбиту в полярных координатах, используя элементы орбиты $p,e$ [(пример)](example_connection.ipynb).
+7. Метод `polar` выводит орбиту в полярных координатах, используя элементы орбиты $p,e$ [(пример полярной орбиты)](example_connection.ipynb).
+8. Метод `orbit3d` выводит орбиту в пространстве, используя $i, \omega, \Omega, p, e$, а также можно передать параметры отображения: угол относительно плоскости экватора (`vertical_roll`), и угол относительно оси вращения (`z_roll`). По умолчанию углы равны 30 градусов. [(пример пространственной орбиты)](example_3d.ipynb).
 
 ---
 
@@ -161,4 +162,5 @@ The parameter is responsible for displaying radius vectors,
 The parameter is responsible for displaying the engine start points;
 
  6. The `pplotly` method - displays an interactive graph using the plotly library;
- 7. The `polar` method outputs the orbit in polar coordinates using the orbit elements $p,e$ [(check here)](example_connection.ipynb).
+ 7. The `polar` method outputs the orbit in polar coordinates using the orbit elements $p,e$ [(check polar orbit)](example_connection.ipynb).
+ 8. The `orbit 3d` method outputs an orbit in space using $i, \omega, \Omega, p, e$, and you can also pass the display parameters: the angle relative to the equator plane (`vertical_roll`), and the angle relative to the axis of rotation (`z_roll`). By default, the angles are 30 degrees. [(сheck 3d orbit)](example_3d.ipynb)
